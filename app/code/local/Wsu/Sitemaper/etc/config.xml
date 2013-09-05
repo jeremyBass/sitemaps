@@ -1,0 +1,270 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Wsu
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Wsu EULA that is bundled with
+ * this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.wsu.com/LICENSE-1.0.html
+ *
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@wsu.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade the extension
+ * to newer versions in the future. If you wish to customize the extension
+ * for your needs please refer to http://www.wsu.com/ for more information
+ * or send an email to sales@wsu.com
+ *
+ * @category   Wsu
+ * @package    Wsu_Sitemaper
+ * @copyright  Copyright (c) 2012 Wsu (http://www.wsu.com/)
+ * @license    http://www.wsu.com/LICENSE-1.0.html
+ */
+
+/**
+ * Extended Sitemap extension
+ *
+ * @category   Wsu
+ * @package    Wsu_Sitemaper
+ * @author     Wsu Dev Team <dev@wsu.com>
+ */
+-->
+<config>
+    <modules>
+        <Wsu_Sitemaper>
+            <version>3.0.4</version>
+        </Wsu_Sitemaper>
+    </modules>
+    <frontend>
+        <translate>
+            <modules>
+                <Wsu_Sitemaper>
+                    <files>
+                        <default>Wsu_Sitemaper.csv</default>
+                    </files>
+                </Wsu_Sitemaper>
+            </modules>
+        </translate>
+        <routers>
+            <sitemaper>
+                <use>standard</use>
+                <args>
+                    <module>Wsu_Sitemaper</module>
+                    <frontName>sitemap</frontName>
+                </args>
+            </sitemaper>
+        </routers>
+        <layout>
+            <updates>
+                <sitemaper>
+                    <file>sitemaper.xml</file>
+                </sitemaper>
+            </updates>
+        </layout>
+    </frontend>
+    <global>
+        <models>
+            <sitemaper>
+                <class>Wsu_Sitemaper_Model</class>
+                <resourceModel>sitemaper_mysql4</resourceModel>
+            </sitemaper>
+            <sitemaper_mysql4>
+                <class>Wsu_Sitemaper_Model_Mysql4</class>
+                <entities>
+                    <sitemap>
+                        <table>sitemap</table>
+                    </sitemap>
+                </entities>
+            </sitemaper_mysql4>
+            <catalog_resource_eav_mysql4>
+                <rewrite>
+                    <product_attribute_backend_media>Wsu_Sitemaper_Model_Catalog_Resource_Eav_Mysql4_Product_Attribute_Backend_Media</product_attribute_backend_media>
+                </rewrite>
+            </catalog_resource_eav_mysql4>
+        </models>
+        <resources>
+            <sitemaper_setup>
+                <setup>
+                    <module>Wsu_Sitemaper</module>
+                    <class>Mage_Eav_Model_Entity_Setup</class>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </sitemaper_setup>
+            <sitemaper_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </sitemaper_write>
+            <sitemaper_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </sitemaper_read>
+        </resources>
+        <blocks>
+            <sitemaper>
+                <class>Wsu_Sitemaper_Block</class>
+            </sitemaper>
+            <page>
+                <rewrite>
+                    <template_links>Wsu_Sitemaper_Block_Page_Template_Links</template_links>
+                </rewrite>
+            </page>
+            <adminhtml>
+                <rewrite>
+                    <cms_page_edit_tab_meta>Wsu_Adminhtml_Block_Sitemaper_Cms_Page_Edit_Tab_Meta</cms_page_edit_tab_meta>
+                </rewrite>
+            </adminhtml>
+        </blocks>
+        <helpers>
+            <sitemaper>
+                <class>Wsu_Sitemaper_Helper</class>
+            </sitemaper>
+        </helpers>
+        <template>
+            <email>
+                <sitemaper_generate_error_email_template translate="label" module="sitemaper">
+                    <label>Extended Sitemap generate Warnings</label>
+                    <file>sitemaper_generate_warning.html</file>
+                    <type>text</type>
+                </sitemaper_generate_error_email_template>
+            </email>
+        </template>
+    </global>
+    <adminhtml>
+        <layout>
+            <updates>
+                <sitemaper>
+                    <file>sitemaper.xml</file>
+                </sitemaper>
+            </updates>
+        </layout>
+        <menu>
+            <catalog>
+                <children>
+                    <sitemaper translate="title" module="sitemaper">
+                        <title>Google Sitemap (Extended)</title>
+                        <sort_order>180</sort_order>
+                        <children>
+                            <generate translate="title">
+                                <title>Generate</title>
+                                <sort_order>1</sort_order>
+                                <action>wsu/sitemaper/</action>
+                            </generate>
+                            <settings translate="title">
+                                <title>Settings</title>
+                                <sort_order>2</sort_order>
+                                <action>adminhtml/system_config/edit/section/wsu_seo/</action>
+                            </settings>
+                        </children>
+                    </sitemaper>
+                </children>
+            </catalog>
+        </menu>
+        <acl>
+            <resources>
+                <admin>
+                    <children>
+                        <catalog>
+                            <children>
+                                <sitemaper translate="title" module="sitemap">
+                                    <title>Google Sitemap (Extended)</title>
+                                    <children>
+                                        <generate translate="title">
+                                            <title>Generate</title>
+                                        </generate>
+                                        <settings translate="title">
+                                            <title>Settings</title>
+                                        </settings>
+                                    </children>
+                                </sitemaper>
+                            </children>
+                        </catalog>
+                        <system>
+                            <children>
+                                <config>
+                                    <children>
+                                        <wsu_seo translate="title" module="sitemaper">
+                                            <title>Wsu &gt; SEO Suite</title>
+                                            <sort_order>100</sort_order>
+                                            <children>
+                                                <sitemaper>
+                                                    <title>Extended Sitemap</title>
+                                                    <sort_order>100</sort_order>
+                                                </sitemaper>
+                                                <google_sitemap>
+                                                    <title>Google Sitemap (Extended)</title>
+                                                    <sort_order>200</sort_order>
+                                                </google_sitemap>
+                                            </children>
+                                        </wsu_seo>
+                                    </children>
+                                </config>
+                            </children>
+                        </system>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
+        <translate>
+            <modules>
+                <Wsu_Sitemaper>
+                    <files>
+                        <default>Wsu_Sitemaper.csv</default>
+                    </files>
+                </Wsu_Sitemaper>
+            </modules>
+        </translate>
+    </adminhtml>
+    <default>
+        <wsu_seo>
+            <sitemaper>
+                <show_stores>1</show_stores>
+                <show_categories>1</show_categories>
+                <show_products>1</show_products>
+                <category_anchor>0</category_anchor>
+                <sort_order>position</sort_order>
+                <show_pages>1</show_pages>
+                <filter_pages>no-route,enable-cookies</filter_pages>
+                <show_links>1</show_links>
+            </sitemaper>
+            <google_sitemap>
+                <enabled>0</enabled>
+                <error_email><![CDATA[]]></error_email>
+                <error_email_template>sitemaper_generate_error_email_template</error_email_template>
+                <error_email_identity>general</error_email_identity>
+                <page_priority>0.25</page_priority>
+                <page_changefreq>daily</page_changefreq>
+                <category_priority>0.5</category_priority>
+                <category_changefreq>daily</category_changefreq>
+                <product_priority>1</product_priority>
+                <product_changefreq>daily</product_changefreq>
+                <product_images>0</product_images>
+                <product_tags>1</product_tags>
+                <product_tags_priority>0.5</product_tags_priority>
+                <product_tags_changefreq>daily</product_tags_changefreq>
+                <link_priority>0.1</link_priority>
+                <link_changefreq>daily</link_changefreq>
+                <use_index>0</use_index>
+                <split_size>10240</split_size>
+                <max_links>50000</max_links>
+            </google_sitemap>
+        </wsu_seo>
+    </default>
+    <crontab>
+        <jobs>
+            <sitemaper_generate>
+                <!--<schedule><cron_expr>* * * * *</cron_expr></schedule>-->
+                <run><model>sitemaper/observer::scheduledGenerateSitemaps</model></run>
+            </sitemaper_generate>
+        </jobs>
+    </crontab>
+</config>

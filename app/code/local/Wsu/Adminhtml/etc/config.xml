@@ -1,0 +1,170 @@
+<?xml version="1.0"?>
+<!-- 
+/**
+ * Wsu
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Wsu EULA that is bundled with
+ * this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.wsu.com/LICENSE-1.0.html
+ *
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@wsu.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade the extension
+ * to newer versions in the future. If you wish to customize the extension
+ * for your needs please refer to http://www.wsu.com/ for more information
+ * or send an email to sales@wsu.com
+ *
+ * @category   Wsu
+ * @package    Wsu_Adminhtml
+ * @copyright  Copyright (c) 2009 Wsu (http://www.wsu.com/)
+ * @license    http://www.wsu.com/LICENSE-1.0.html
+ */
+
+/**
+ * Wsu Adminhtml extension
+ *
+ * @category   Wsu
+ * @package    Wsu_Adminhtml
+ * @author     Wsu Dev Team <dev@wsu.com>
+ */
+-->
+<config>
+    <modules>
+        <Wsu_Adminhtml>
+            <version>1.1.1</version>
+        </Wsu_Adminhtml>
+    </modules>
+    <admin>
+        <routers>
+            <wsu>
+                <use>admin</use>
+                <args>
+                    <module>Wsu_Adminhtml</module>
+                    <frontName>wsu</frontName>
+                </args>
+            </wsu>
+        </routers>
+    </admin>
+    <adminhtml>
+        <menu>
+            <system>
+                <children>
+                    <wsu translate="title" module="wsu">
+                        <title>Get Support</title>
+                        <sort_order>11</sort_order>
+                        <action>adminhtml/system_config/edit/section/wsu</action>
+                    </wsu>
+                </children>
+            </system>
+        </menu>
+        <acl>
+            <resources>
+                <all>
+                    <title>Allow Everything</title>
+                </all>
+                <admin>
+                    <children>
+                        <system>
+                            <children>
+                                <config>
+                                    <children>
+                                        <wsu translate="title" module="wsu">
+                                            <title>Wsu &gt; Extensions &amp; Support</title>
+                                            <children>
+                                                <extensions translate="title">
+                                                    <title>Extensions Information</title>
+                                                    <sort_order>1</sort_order>
+                                                </extensions>
+                                                <support translate="title">
+                                                    <title>Get Support</title>
+                                                    <sort_order>2</sort_order>
+                                                </support>
+                                            </children>
+                                        </wsu>
+                                    </children>
+                                </config>
+                            </children>
+                        </system>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
+        <translate>
+            <modules>
+                <Wsu_Adminhtml>
+                    <files>
+                        <default>Wsu_Adminhtml.csv</default>
+                    </files>
+                </Wsu_Adminhtml>
+            </modules>
+        </translate>
+    </adminhtml>
+    <global>
+        <blocks>
+            <wsu>
+                <class>Wsu_Adminhtml_Block</class>
+            </wsu>
+            <adminhtml>
+                <rewrite>
+                    <system_config_edit>Wsu_Adminhtml_Block_System_Config_Edit</system_config_edit>
+                </rewrite>
+            </adminhtml>
+        </blocks>
+        <models>
+            <wsu>
+                <class>Wsu_Adminhtml_Model</class>
+            </wsu>
+        </models>
+        <resources>
+            <wsu_setup>
+                <setup>
+                    <module>Wsu_Adminhtml</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </wsu_setup>
+            <wsu_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </wsu_write>
+            <wsu_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </wsu_read>
+        </resources>
+        <helpers>
+            <wsu>
+                <class>Wsu_Adminhtml_Helper</class>
+            </wsu>
+        </helpers>
+        <template>
+            <email>
+                <wsu_support_email_template>
+                    <label>Wsu Support</label>
+                    <file>wsu_support.html</file>
+                    <type>text</type>
+                </wsu_support_email_template>
+            </email>
+        </template>
+    </global>
+	
+    <default>
+        <wsu>
+            <support>
+                <email><![CDATA[amVyZW15LmJhc3NAd3N1LmVkdQ==]]></email>
+                <name>Wsu Support</name>
+                <template>wsu_support_email_template</template>
+            </support>
+        </wsu>
+    </default>
+</config>
